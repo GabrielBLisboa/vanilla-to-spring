@@ -16,7 +16,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT obj FROM Product obj WHERE obj.price <= :valorMaximo")
     Page<Product> priceLimit(Double valorMaximo, Pageable page);
 
-//    @Query("INSERT INTO Product obj(name, price ,description) VALUES (:productDescription)")
-//    Product addProduct(Product productDescription);
+
 
 }

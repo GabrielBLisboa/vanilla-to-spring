@@ -13,65 +13,71 @@ import static org.hamcrest.Matchers.containsString;
 class TestProducts {
 
 	String apiAdress = "http://localhost:8080/products";
-	String searchNameEndpoint = "/search-name";
-	String limitByPriceEndpoint = "/price-limit";
-	String newProductAPI = "/add-product";
+	String searchNameEndpoint = "/search?name=Tacos";
+	String limitByPriceEndpoint = "/price-limit/30";
+	String newProductEndpoint = "/add-product";
+	String updateProductEndpoint = "/update-product/1";
 
 
 	@Test
-	@DisplayName("When asking for all clients, we should see all of them")
-	public void getAllProducts() {
+	@DisplayName("Quando o cliente procurar por todos os produtos cadastrados " +
+			"no import.sql , os três são exibidos")
+	public void getStarterCombo() {
 		given().
 			contentType(ContentType.JSON)
 		.when()
 			.get(apiAdress)
 		.then()
 				.statusCode(200)
-				.assertThat().body(containsString("Nachos"));
+				.assertThat().body(containsString("nachos"))
+				.assertThat().body(containsString("tacos"))
+				.assertThat().body(containsString("burrito"));
 	}
 
 	@Test
-	@DisplayName("When asking for a specif items, we should see it")
+	@DisplayName("Quando o cliente procurar pelo nome de um produto, " +
+			"no caso, Tacos, ele deverá ser exibido")
 	public void getMeTacos() {
 		given().
 				contentType(ContentType.JSON)
 				.when()
 				.get(apiAdress+searchNameEndpoint)
 				.then()
-				.statusCode(200)
-				.assertThat().body(containsString("Tacos"));
+				.statusCode(302)
+				.assertThat().body(containsString("tacos"));
 	}
 
 	@Test
-	@DisplayName("When asking for items, we should see them")
-	public void belowThirtyBucks() {
+	@DisplayName("Quando o cliente procurar por produtos com um valor menor que " +
+			"30 reais, eles deverão ser exibidos")
+	public void imBroke() {
 		given().
 				contentType(ContentType.JSON)
 				.when()
 				.get(apiAdress+limitByPriceEndpoint)
 				.then()
 				.statusCode(200)
-				.assertThat().body(containsString("Tacos"))
-				.assertThat().body(containsString("Nachos"));
+				.assertThat().body(containsString("tacos"))
+				.assertThat().body(containsString("nachos"));
 	}
 
 	@Test
-	@DisplayName("When creating an user then it should be available")
-	public void createUser(){
+	@DisplayName("Quando um produto for cadastrado, este deverá ser adicionado ao banco de dados")
+	public void createProduct(){
 
 		String createProduct = "{\n" +
-				"  \"name\": \"Quesadilla\",\n" +
+				"  \"name\": \"quesadilla\",\n" +
 				"  \"price\": 20.90,\n" +
-				"  \"description\": \"Tortilla com queijo\"\n" +
+				"  \"description\": \"Quesadilla com queijo\"\n" +
 				"}";
 
-		String expectedAnswer = "\"name\":\"Quesadilla\"";
+		String expectedAnswer = "\"name\":\"quesadilla\"";
 
 		given()
 				.contentType(ContentType.JSON)
 				.body(createProduct)
 				.when()
-				.post(apiAdress+newProductAPI)
+				.post(apiAdress+newProductEndpoint)
 				.then()
 				.statusCode(201)
 				.assertThat().body(containsString(expectedAnswer));
@@ -79,25 +85,29 @@ class TestProducts {
 	}
 
 	@Test
-	@DisplayName("When updating a product, the data should change")
+	@DisplayName("Quando o valor de um produto JÁ CADASTRADO (ex: tacos) precisar ser alterado, " +
+			"este campo deverá ser atualizado no banco")
 	public void updateProduct(){
 
 		String updateProduct = "{\n" +
-				"  \"name\": \"Quesadilla\",\n" +
-				"  \"price\": 21.90,\n" +
-				"  \"description\": \"Tortilla com queijo\"\n" +
+				"  \"name\": \"tacos\",\n" +
+				"  \"price\": 28.90,\n" +
+				"  \"description\": \"Tacos de milho com recheio de frango\"\n" +
 				"}";
 
-		String expectedAnswer = "\"price\": \"21.90\"";
+		String expectedAnswer = "\"price\":28.9";
 
-		given().contentType(ContentType.JSON).body(updateProduct)
-				.when().put(apiAdress + "/4")
-				.then().statusCode(200).assertThat().body(containsString(expectedAnswer));
+		given().contentType(ContentType.JSON)
+				.body(updateProduct)
+				.when()
+				.put(apiAdress +updateProductEndpoint)
+				.then().statusCode(200)
+				.assertThat().body(containsString(expectedAnswer));
 
 	}
 	@Test
-	@DisplayName("When updating a product, the data should change")
-	public void deleteProduct(){
+	@DisplayName("Quando o burrito for excluído ele deve estar ausente do banco de dados")
+	public void deleteBurrito(){
 
 		String expectedAnswer = "";
 

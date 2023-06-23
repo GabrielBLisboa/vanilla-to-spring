@@ -5,7 +5,7 @@ import java.time.Instant;
 
 // O Serializable permite que os dados possam ser transformados em sequência de bytes
 // e prevenir erros de rede
-public class StandartError implements Serializable {
+public class StandardError implements Serializable {
 
 //    variáveis no padrão de JSON do Spring
     private Instant timeStamp;
@@ -14,7 +14,7 @@ public class StandartError implements Serializable {
     private String message;
     private String path;
 
-    public StandartError(){
+    public StandardError(){
     }
 
     public Instant getTimeStamp() {

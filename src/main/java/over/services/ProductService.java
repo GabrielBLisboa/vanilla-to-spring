@@ -1,10 +1,10 @@
 package over.services;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import over.entities.Product;
 import over.repositories.ProductRepository;
+import over.resources.exceptions.EntityNotFoundException;
 
 // Essa anotação serve para registrar a classe como um componente
 // que vai participar do mecanismo de injeção de dependência do Spring
@@ -16,10 +16,11 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-// função que a nível de serviço que caso receba um ID que não exista dispara uma Exceção personalizada
+// função a nível de serviço que caso receba um ID que não exista dispara uma Exceção personalizada
     public Product findById(Long id){
+//  quando importar o EntityNotFoundException ter atenção para importar o que você criou e não o jakarta.persistence
         return repository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Id not found" + id)
+                () -> new EntityNotFoundException("ID Not Found: " + id)
         );
     }
 

@@ -1,8 +1,10 @@
 Nachos, tacos e burritos!!
 
-Tudo começou quando quis transformar a base de um projeto sem nenhum framework (ver meu repositório: java-postgresql) em um projeto em Spring Boot.
+Tudo começou quando quis pegar a base de um projeto sem framework (ver meu repositório: java-postgresql) e criar um novo com Spring Boot. 
 
-Foram criadas classes de controle, repositório e uma de serviço para intermiediá-las para tratar exceções. Todo projeto está comentado então é possível seguir minha linha de raciocínio e implementações.
+Então pensei nessa API-REST que consulta, cria, atualiza e deleta produtos de uma banco de dados. De início, são gerados três pratos da culinária mexicana (amo!) pelo arquivo import.sql.
+
+Foram criadas classes de controle, repositório e uma de serviço para intermediá-las para tratar exceções. Todo projeto está comentado então é possível seguir minha linha de raciocínio e implementações.
 
 ### Instalação
 
@@ -28,7 +30,7 @@ Dgite o comando + Enter
 
 Como criei os testes no me mesmo projeto que a API, não poderia rodar duas aplicações ao mesmo tempo. Pelo próprio terminal do IntelliJ é possível então rodar a API usando o comando *mvn spring-boot:start* e em seguida rodar a classe com todos os testes.
 
-### Para as verificações com o Postman criei os seguintes requests:
+### Para as verificações CRUD com o Postman criei os seguintes requests:
 
 GET <br>
 All Products: http://localhost:8080/products <br>

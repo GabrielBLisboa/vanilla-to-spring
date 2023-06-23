@@ -2,7 +2,7 @@ Nachos, tacos e burritos!!
 
 Tudo começou quando quis pegar a base de um projeto sem framework (ver meu repositório: java-postgresql) e criar um novo com Spring Boot. 
 
-Então pensei nessa API-REST que consulta, cria, atualiza e deleta produtos de uma banco de dados. De início, são gerados três pratos da culinária mexicana (amo!) pelo arquivo import.sql.
+Então pensei nessa API-REST que consulta, cria, atualiza e deleta produtos de um banco de dados. De início, são gerados três pratos da culinária mexicana (amo!) pelo arquivo import.sql.
 
 Foram criadas classes de controle, repositório e uma de serviço para intermediá-las para tratar exceções. Todo projeto está comentado então é possível seguir minha linha de raciocínio e implementações.
 

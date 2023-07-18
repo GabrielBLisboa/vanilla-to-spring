@@ -1,6 +1,9 @@
+*UPDATE: Subi a API na AWS. Confira o arquivo AWS.md aqui mesmo na raíz desse repositório*
+
+
 Nachos, tacos e burritos!!
 
-Tudo começou quando quis pegar a base de um projeto sem framework (ver meu repositório: java-postgresql) e criar um novo com Spring Boot. 
+Tudo começou quando quis pegar a base de um projeto CRUD sem framework (ver meu repositório: java-postgresql) e criar um novo com Spring Boot. 
 
 Então pensei nessa API-REST que consulta, cria, atualiza e deleta produtos. De início, são gerados três pratos da culinária mexicana (amo!) pelo import.sql
 
